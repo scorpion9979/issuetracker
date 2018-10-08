@@ -69,7 +69,7 @@
         "no-unused-expression": true,
         // disable this rule as it is very heavy performance-wise and not that useful
         "no-use-before-declare": false,
-        "object-literal-sort-keys": true,
+        "object-literal-sort-keys": false,
         "one-line": [
             true,
             "check-catch",
