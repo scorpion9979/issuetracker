@@ -67,7 +67,36 @@ module.exports = function(app) {
 
     .put(function(req, res) {
       var project = req.params.project;
-
+      let id = req.body._id;
+      let nowDate = new Date().toISOString();
+      Issue.findByIdAndUpdate(id, {new: true}, function(err, issue) {
+        issue.issue_title = req.body.issue_title || issue.issue_title;
+        issue.issue_text = req.body.issue_text || issue.issue_text;
+        issue.updated_on = nowDate;
+        issue.created_by = req.body.created_by || issue.created_by;
+        issue.assigned_to = req.body.assigned_to || issue.assigned_to;
+        issue.open = req.body.open || issue.open;
+        issue.status_text = req.body.status_text || issue.status_text;
+        if (!req.body.issue_title &&
+            !req.body.issue_text &&
+            !req.body.created_by &&
+            !req.body.assigned_to &&
+            !req.body.open &&
+            !req.body.status_text) {
+         res.status(400)
+            .send('no updated field sent');
+       } else {
+        issue.save(function(e, i) {
+          if (e) {
+            res.status(400)
+               .send('could not update ' + id);
+          } else {
+            res.status(200)
+               .send('successfully updated');
+          }
+        });
+       }
+      });
     })
 
     .delete(function(req, res) {
