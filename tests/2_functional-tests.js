@@ -73,15 +73,48 @@ suite('Functional Tests', function() {
     suite('PUT /api/issues/{project} => text', function() {
 
       test('No body', function(done) {
-
+        chai.request(server)
+        .put('/api/issues/test')
+        .send({
+          _id: '5bbb9fee0a5d671db8d8329b',
+        })
+        .end(function(err, res) {
+          assert.equal(res.status, 400);
+          assert.equal(res.text, 'no updated field sent');
+          done();
+        });
       });
 
       test('One field to update', function(done) {
-
+        chai.request(server)
+        .put('/api/issues/test')
+        .send({
+          _id: '5bbb9fee0a5d671db8d8329b',
+          issue_title: 'Title',
+        })
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.text, 'successfully updated');
+          done();
+        });
       });
 
       test('Multiple fields to update', function(done) {
-
+        chai.request(server)
+        .put('/api/issues/test')
+        .send({
+          _id: '5bbb9fee0a5d671db8d8329b',
+          issue_title: 'Title',
+          issue_text: 'text',
+          created_by: 'Functional Test - Every field filled in',
+          assigned_to: 'Chai and Mocha',
+          status_text: 'In QA',
+        })
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.text, 'successfully updated');
+          done();
+        });
       });
 
     });
