@@ -116,6 +116,18 @@ module.exports = function(app) {
 
     .delete(function(req, res) {
       var project = req.params.project;
-
+      let id = req.body._id;
+      Issue.findByIdAndRemove(id, function(err, issue) {
+        if (!id) {
+          res.status(400)
+             .send('_id error');
+        } else if (!issue) {
+          res.status(400)
+             .send('could not delete ' + id);
+        } else {
+          res.status(200)
+             .send('deleted ' + id);
+        }
+      });
     });
 };
