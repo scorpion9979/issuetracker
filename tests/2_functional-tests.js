@@ -142,11 +142,39 @@ suite('Functional Tests', function() {
       });
 
       test('One filter', function(done) {
-
+        chai.request(server)
+        .get('/api/issues/test')
+        .query({open: false})
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.isArray(res.body);
+          res.body.forEach(element => {
+            assert.equal(element.open, true);
+          });
+          done();
+        });
       });
 
       test('Multiple filters (test for multiple fields you know will be in the db for a return)', function(done) {
-
+        chai.request(server)
+        .get('/api/issues/test')
+        .query({
+          open: false,
+          created_by: 'Functional Test - Every field filled in',
+          assigned_to: 'Chai and Mocha',
+          issue_text: 'In QA',
+        })
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.isArray(res.body);
+          res.body.forEach(element => {
+            assert.equal(element.open, true);
+            assert.equal(element.created_by, 'Functional Test - Every field filled in');
+            assert.equal(element.assigned_to, 'Chai and Mocha');
+            assert.equal(element.issue_text, 'In QA');
+          });
+          done();
+        });
       });
 
     });
