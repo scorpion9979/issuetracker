@@ -34,14 +34,13 @@ module.exports = function(app) {
   app.route('/api/issues/:project')
 
     .get(function(req, res) {
-      var project = req.params.project;
-      Issue.find({}, function(err, docs) {
+      Issue.find({}, function(err, issues) {
         if (err) {
           res.status(400)
              .send(error);
         } else {
           res.status(200)
-             .send(docs.filter(e => {
+             .send(issues.filter(e => {
                let result = true;
                Object.keys(req.query).forEach(q => {
                  result = result && (req.query[q] === e[q]);
@@ -81,7 +80,6 @@ module.exports = function(app) {
     })
 
     .put(function(req, res) {
-      var project = req.params.project;
       let id = req.body._id;
       let nowDate = new Date().toISOString();
       Issue.findByIdAndUpdate(id, {new: true}, function(err, issue) {
@@ -115,7 +113,6 @@ module.exports = function(app) {
     })
 
     .delete(function(req, res) {
-      var project = req.params.project;
       let id = req.body._id;
       Issue.findByIdAndRemove(id, function(err, issue) {
         if (!id) {

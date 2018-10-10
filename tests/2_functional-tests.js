@@ -21,7 +21,7 @@ suite('Functional Tests', function() {
        chai.request(server)
         .post('/api/issues/test')
         .send({
-          _id: '5bbb9fee0a5d671db8d8329b',
+          _id: 'valididvalididvalididval',
           issue_title: 'Title',
           issue_text: 'text',
           created_by: 'Functional Test - Every field filled in',
@@ -77,7 +77,7 @@ suite('Functional Tests', function() {
         chai.request(server)
         .put('/api/issues/test')
         .send({
-          _id: '5bbb9fee0a5d671db8d8329b',
+          _id: 'valididvalididvalididval',
         })
         .end(function(err, res) {
           assert.equal(res.status, 400);
@@ -90,7 +90,7 @@ suite('Functional Tests', function() {
         chai.request(server)
         .put('/api/issues/test')
         .send({
-          _id: '5bbb9fee0a5d671db8d8329b',
+          _id: 'valididvalididvalididval',
           issue_title: 'Title',
         })
         .end(function(err, res) {
@@ -104,7 +104,7 @@ suite('Functional Tests', function() {
         chai.request(server)
         .put('/api/issues/test')
         .send({
-          _id: '5bbb9fee0a5d671db8d8329b',
+          _id: 'valididvalididvalididval',
           issue_title: 'Title',
           issue_text: 'text',
           created_by: 'Functional Test - Every field filled in',
@@ -199,11 +199,11 @@ suite('Functional Tests', function() {
         chai.request(server)
         .del('/api/issues/test')
         .send({
-          _id: '5bbb9fee0a5d671db8d8329b',
+          _id: 'valididvalididvalididval',
         })
         .end(function(err, res) {
           assert.equal(res.status, 200);
-          assert.equal(res.text, 'deleted 5bbb9fee0a5d671db8d8329b');
+          assert.equal(res.text, 'deleted valididvalididvalididval');
           done();
         });
       });
@@ -212,11 +212,11 @@ suite('Functional Tests', function() {
         chai.request(server)
         .del('/api/issues/test')
         .send({
-          _id: 'fafafafafafafafafafafafa',
+          _id: 'invalididinvalididinvali',
         })
         .end(function(err, res) {
           assert.equal(res.status, 400);
-          assert.equal(res.text, 'could not delete fafafafafafafafafafafafa');
+          assert.equal(res.text, 'could not delete invalididinvalididinvali');
           done();
         });
       });
