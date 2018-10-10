@@ -35,7 +35,21 @@ module.exports = function(app) {
 
     .get(function(req, res) {
       var project = req.params.project;
-
+      Issue.find({}, function(err, docs) {
+        if (err) {
+          res.status(400)
+             .send(error);
+        } else {
+          res.status(200)
+             .send(docs.filter(e => {
+               let result = true;
+               Object.keys(req.query).forEach(q => {
+                 result = result && (req.query[q] === e[q]);
+               });
+               return result;
+             }));
+        }
+      });
     })
 
     .post(function(req, res) {
