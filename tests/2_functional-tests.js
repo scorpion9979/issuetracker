@@ -21,6 +21,7 @@ suite('Functional Tests', function() {
        chai.request(server)
         .post('/api/issues/test')
         .send({
+          _id: '5bbb9fee0a5d671db8d8329b',
           issue_title: 'Title',
           issue_text: 'text',
           created_by: 'Functional Test - Every field filled in',

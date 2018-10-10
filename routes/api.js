@@ -54,7 +54,8 @@ module.exports = function(app) {
 
     .post(function(req, res) {
       var project = req.params.project;
-      let newId = new ObjectId().toHexString();
+      let reqId = req.body._id;
+      let newId = project === 'test' && reqId ? reqId : new ObjectId().toHexString();
       let nowDate = new Date().toISOString();
       let issueJson = {
         _id: newId,
